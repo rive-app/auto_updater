@@ -16,15 +16,17 @@ Future<void> main(List<String> arguments) async {
       ? '${Directory.current.path}/macos/Pods/Sparkle/bin/sign_update'
       : '${Directory.current.path}\\windows\\flutter\\ephemeral\\.plugin_symlinks\\auto_updater\\windows\\WinSparkle-0.8.0\\bin\\sign_update.bat';
 
+  final args = List<String>.from(arguments);
+
   if (Platform.isWindows) {
-    if (arguments.length == 1) {
-      arguments.add('.\\dsa_priv.pem');
+    if (args.length == 1) {
+      args.add('.\\dsa_priv.pem');
     }
   }
 
   Process process = await Process.start(
     executable,
-    arguments,
+    args,
   );
 
   process.stdout.listen(onProcessStdOutOrErr);
